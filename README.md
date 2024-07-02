@@ -82,7 +82,7 @@ print(json_data)
 >     * Dictionary in DynamoDB format.
 
 
-`convert_dynamodb_to_json(dynamodb_data: dict) -> dict`
+`convert_dynamodb_to_json(dynamodb_data: dict, remove_content: bool) -> dict`
 
 > Converts a DynamoDB format dictionary to JSON.
 > * Parameters:
