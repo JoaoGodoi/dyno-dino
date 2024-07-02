@@ -14,9 +14,12 @@ def _is_number_set(value: List[Any]) -> bool:
 def _is_binary_set(value: List[Any]) -> bool:
     try:
         for i in value:
-            base64.b64decode(i, validate=True)
+            if isinstance(i, (str, bytes)):
+                base64.b64decode(i, validate=True)
+            else:
+                return False
         return True
-    except (base64.binascii.Error, ValueError):
+    except (base64.binascii.Error, ValueError, TypeError):
         return False
 
 
@@ -53,7 +56,7 @@ def _convert_value(value: Any) -> Dict[str, Any]:
         elif _is_number_set(value):
             return {'NS': [str(i) for i in value]}
         elif _is_binary_set(value):
-            return {'BS': value}
+            return {'BS': [base64.b64encode(i).decode('utf-8') if isinstance(i, bytes) else i for i in value]}
         else:
             list_items = []
             for item in value:
