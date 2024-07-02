@@ -89,13 +89,13 @@ def _convert_from_dynamodb(dynamodb_data: Dict[str, Any]) -> Any:
         raise ValueError(f"Unsupported DynamoDB type: {dynamodb_data}")
 
 
-def convert_dynamodb_json_file_to_json(dynamodb_data: dict):
+def convert_dynamodb_to_json(dynamodb_data: dict):
     if not isinstance(dynamodb_data, dict) or 'M' not in dynamodb_data:
         dynamodb_data = {'M': dynamodb_data}
     json_data = _convert_from_dynamodb(dynamodb_data)
     return json_data
 
 
-def convert_json_file(data: dict):
+def convert_json_to_dynamodb(data: dict):
     dynamodb_json = _convert_to_dynamodb(data)
     return dynamodb_json
