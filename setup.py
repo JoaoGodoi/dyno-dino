@@ -9,7 +9,7 @@ setup(
     ],
     author='João Victor Godoi Bernardino',
     author_email='joaogodoi1010@gmail.com',
-    description='',
+    description='Set of useful methods to speed up conversion of objects to AWS services',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/JoaoGodoi/dyno-dino',
