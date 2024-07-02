@@ -47,10 +47,7 @@ def _convert_to_dynamodb(data: Any) -> Dict[str, Any]:
 
 def _convert_value(value: Any) -> Dict[str, Any]:
     if isinstance(value, str):
-        if _is_base64(value):
-            return {'B': value}
-        else:
-            return {'S': value}
+        return {'S': value}
     elif isinstance(value, bool):
         return {'BOOL': value}
     elif isinstance(value, int) or isinstance(value, float):
@@ -103,10 +100,12 @@ def _convert_from_dynamodb(dynamodb_data: Dict[str, Any]) -> Any:
         raise ValueError(f"Unsupported DynamoDB type: {dynamodb_data}")
 
 
-def convert_dynamodb_to_json(dynamodb_data: dict):
+def convert_dynamodb_to_json(dynamodb_data: dict, remove_content: bool = False):
     if not isinstance(dynamodb_data, dict) or 'M' not in dynamodb_data:
         dynamodb_data = {'M': dynamodb_data}
     json_data = _convert_from_dynamodb(dynamodb_data)
+    if remove_content and isinstance(json_data, dict) and 'content' in json_data:
+        json_data = json_data['content']
     return json_data
 
 

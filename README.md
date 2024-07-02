@@ -27,7 +27,6 @@ json_data = {
     "age": 30,
     "is_verified": True,
     "account_balance": 1234.56,
-    "binary_data": "YWJjZGVmZ2g=",
     "nested_object": {
         "key1": "value1",
         "key2": 2
@@ -54,7 +53,6 @@ dynamodb_data = {
         "age": {"N": "30"},
         "is_verified": {"BOOL": True},
         "account_balance": {"N": "1234.56"},
-        "binary_data": {"B": "YWJjZGVmZ2g="},
         "nested_object": {
             "M": {
                 "key1": {"S": "value1"},
@@ -76,21 +74,24 @@ print(json_data)
 ## Available Methods
 
 `convert_json_to_dynamodb(data: dict) -> dict`
-Converts a JSON dictionary to DynamoDB format.
-* Parameters:
-    * `data` (dict): JSON dictionary to be converted.
-* Returns:
-    * Dictionary in DynamoDB format.
+
+> Converts a JSON dictionary to DynamoDB format.
+> * Parameters:
+>     * `data` (dict): JSON dictionary to be converted.
+> * Returns:
+>     * Dictionary in DynamoDB format.
 
 
 `convert_dynamodb_to_json(dynamodb_data: dict) -> dict`
-Converts a DynamoDB format dictionary to JSON.
-* Parameters:
-    * `dynamodb_data` (dict): DynamoDB format dictionary to be converted.
-* Returns:
-    * JSON dictionary.
+
+> Converts a DynamoDB format dictionary to JSON.
+> * Parameters:
+>     * `dynamodb_data` (dict): DynamoDB format dictionary to be converted.
+>     * `remove_content` (bool, optional): Whether to remove the "content" key if it exists. Default is `False`
+> * Returns:
+>     * JSON dictionary.
 
 
 ## Contributing
 
-Contributions are welcome! Feel free to open issues or pull requests on this GitHub repository.
+Contributions are welcome! Feel free to open issues or pull requests on the [GitHub repository](https://github.com/JoaoGodoi/dyno-dino).
