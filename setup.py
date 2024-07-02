@@ -1,11 +1,8 @@
 from setuptools import setup, find_packages
 
-with open('README.md', 'r', encoding='utf-8-sig') as f:
-    long_description = f.read()
-
 setup(
     name='dyno_dino',
-    version='1.0.3',
+    version='1.0.4',
     packages=find_packages(),
     install_requires=[
         
