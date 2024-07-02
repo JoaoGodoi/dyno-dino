@@ -14,12 +14,24 @@ def _is_number_set(value: List[Any]) -> bool:
 def _is_binary_set(value: List[Any]) -> bool:
     try:
         for i in value:
-            if isinstance(i, (str, bytes)):
+            if isinstance(i, bytes):
                 base64.b64decode(i, validate=True)
+            elif isinstance(i, str):
+                base64.b64decode(i.encode('utf-8'), validate=True)
             else:
                 return False
         return True
     except (base64.binascii.Error, ValueError, TypeError):
+        return False
+
+
+def _is_base64(s: str) -> bool:
+    try:
+        if isinstance(s, str):
+            if base64.b64encode(base64.b64decode(s.encode('utf-8'))).decode('utf-8') == s:
+                return True
+        return False
+    except Exception:
         return False
 
 
@@ -35,10 +47,9 @@ def _convert_to_dynamodb(data: Any) -> Dict[str, Any]:
 
 def _convert_value(value: Any) -> Dict[str, Any]:
     if isinstance(value, str):
-        try:
-            base64.b64decode(value, validate=True)
+        if _is_base64(value):
             return {'B': value}
-        except (base64.binascii.Error, ValueError):
+        else:
             return {'S': value}
     elif isinstance(value, bool):
         return {'BOOL': value}
